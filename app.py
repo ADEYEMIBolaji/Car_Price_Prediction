@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
-
+from datetime import datetime
 # Load the trained model
 model = joblib.load('models/XGBoost_model.pkl')  # Or whatever best model you saved
 
@@ -11,7 +11,7 @@ df = pd.read_csv('data/AutoTrader.csv')  # Update path if needed!
 # Prepare main dynamic lists
 makes = sorted(df['standard_make'].unique())
 colours = sorted(df['standard_colour'].unique())
-vehicle_conditions = sorted(df['vehicle_condition'].unique())
+vehicle_conditions = [condition for condition in sorted(df['vehicle_condition'].unique()) if condition in ['New', 'Used']]
 fuel_types = sorted(df['fuel_type'].unique())
 
 # Prepare make → models
@@ -20,16 +20,19 @@ make_to_models = {
     for make in makes
 }
 
-# Prepare make → body_types
+# Prepare make → body types
 make_to_body_types = {
     make: sorted(df[df['standard_make'] == make]['body_type'].unique())
     for make in makes
 }
 
-# Title
+# Get current year
+current_year = datetime.now().year
+
+# Streamlit App
 st.title("🚗 Dynamic Car Price Prediction App")
 
-# Input section (NO form so it updates instantly!)
+# Select Make
 selected_make = st.selectbox("Select Car Make", makes)
 
 # Based on selected Make
@@ -50,16 +53,15 @@ with col1:
 with col2:
     year_of_registration = st.slider(
         "Year of Registration",
-        min_value=int(df['year_of_registration'].min()),
-        max_value=int(df['year_of_registration'].max()),
+        min_value=2000,
+        max_value=current_year,
         value=2015
     )
-    selected_crossover = st.selectbox("Crossover Car and Van?", ['No', 'Yes'])
     selected_fuel_type = st.selectbox("Fuel Type", fuel_types)
 
 # Predict button
 if st.button("Predict Price"):
-    # Encoding similar to LabelEncoder used during training
+    # Manual encoding (assuming same as LabelEncoder order)
     input_data = {
         'mileage': mileage,
         'standard_colour': list(colours).index(selected_colour),
@@ -68,7 +70,6 @@ if st.button("Predict Price"):
         'vehicle_condition': list(vehicle_conditions).index(selected_vehicle_condition),
         'year_of_registration': year_of_registration,
         'body_type': list(body_types_available).index(selected_body_type),
-        'crossover_car_and_van': 1 if selected_crossover == 'Yes' else 0,
         'fuel_type': list(fuel_types).index(selected_fuel_type)
     }
 

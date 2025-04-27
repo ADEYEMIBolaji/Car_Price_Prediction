@@ -10,8 +10,8 @@ from preprocess_data import load_data, preprocess_data
 
 def train_and_evaluate(X_train, X_test, y_train, y_test):
     models = {
-        'RandomForest': RandomForestRegressor(random_state=42),
-        'XGBoost': XGBRegressor(random_state=42, verbosity=0),
+        'RandomForest': RandomForestRegressor(n_estimators=100, random_state=42),
+        'XGBoost': XGBRegressor(n_estimators=100, random_state=42, verbosity=0),
         'LinearRegression': LinearRegression()
     }
 
