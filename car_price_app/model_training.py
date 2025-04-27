@@ -33,7 +33,7 @@ def train_and_evaluate(X_train, X_test, y_train, y_test):
         })
 
         # Save each model
-        joblib.dump(model, f'models/{name}_model.pkl')
+        joblib.dump(model, f'models/{name}_model.pkl',compress=3)
         print(f"{name} model saved.")
 
     results_df = pd.DataFrame(results)
