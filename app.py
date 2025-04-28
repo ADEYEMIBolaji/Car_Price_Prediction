@@ -8,7 +8,7 @@ model = joblib.load('models/Ensemble_model.pkl')  # Or whatever best model you s
 
 
 # Load the real dataset
-df = pd.read_csv('data/AutoTrader.csv')  # Update path if needed!
+df = pd.read_csv('data/AutoTrader.csv', dtype=str)  # Update path if needed!
 
 # Prepare dynamic lists (convert all to UPPERCASE just once)
 makes = sorted(df['standard_make'].astype(str).str.upper().unique())
@@ -57,7 +57,7 @@ with col2:
         "Year of Registration",
         min_value=2000,
         max_value=current_year,
-        value=2015
+        value=current_year
     )
     selected_fuel_type = st.selectbox("Fuel Type", fuel_types)
 
