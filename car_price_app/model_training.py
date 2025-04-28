@@ -1,36 +1,36 @@
 import pandas as pd
-from sklearn.ensemble import RandomForestRegressor, VotingRegressor
+from sklearn.ensemble import VotingRegressor
 from sklearn.tree import DecisionTreeRegressor
+# from sklearn.svm import SVR
 from xgboost import XGBRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import joblib
-
+import os
 from preprocess_data import load_data, preprocess_data
 
 
 def train_and_evaluate(X_train, X_test, y_train, y_test):
     models_params = {
-        'RandomForest': (
-            RandomForestRegressor(random_state=42),
-            {
-                'n_estimators': [30, 50]
-            }
-        ),
         'XGBoost': (
             XGBRegressor(random_state=42, verbosity=0),
             {
-                'n_estimators': [30, 50],
-                'max_depth': [6, 10]
+                'n_estimators': [30,50],
+                'max_depth': [5, 10]
             }
         ),
         'DecisionTree': (
             DecisionTreeRegressor(random_state=42),
             {
-
-                'min_samples_split': [2, 5]
+                'min_samples_split': [2, 5, 10]
             }
-        )
+        )#,
+        # 'SVR': (
+        #     SVR(),
+        #     {
+        #         'C': [0.1, 1]
+        #     }
+        # )
     }
 
     # Ensure models directory exists
@@ -64,14 +64,14 @@ def train_and_evaluate(X_train, X_test, y_train, y_test):
     # Ensemble Model
     print("\n🔵 Training Ensemble Model...")
 
-    rf_best = joblib.load('models/RandomForest_model.pkl')
     xgb_best = joblib.load('models/XGBoost_model.pkl')
     dt_best = joblib.load('models/DecisionTree_model.pkl')
+    #svr_best = joblib.load('models/SVR_model.pkl')
 
     ensemble = VotingRegressor(estimators=[
-        ('rf', rf_best),
         ('xgb', xgb_best),
-        ('dt', dt_best)
+        ('dt', dt_best)#,
+        #('svr', svr_best)
     ])
 
     ensemble.fit(X_train, y_train)
