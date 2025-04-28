@@ -15,8 +15,8 @@ The project includes:
 
 ## 📸 Demo Screenshot
 
-![Car Price Prediction App Screenshot](https://YOUR_IMAGE_LINK_HERE)
-
+![Used Car Price Prediction App Screenshot](image/prediction.jpg)
+![New Car Price Prediction App Screenshot](image/prediction_new_car.jpg)
 ---
 
 ## 🌐 Live Demo (Try it yourself!)
@@ -143,7 +143,7 @@ to automatically download and extract models into /models/ before starting the a
 Bolaji Adeyemi  
 Passionate about AI, ML, and Building Scalable Intelligent Applications.
 
-[Connect with me on LinkedIn](https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME)
+[Connect with me on LinkedIn](www.linkedin.com/in/adeyemiqbolaji)
 
     
 
