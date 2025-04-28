@@ -21,7 +21,7 @@ The project includes:
 
 ## 🌐 Live Demo (Try it yourself!)
 
-👉 [🔗 Click here to open the Streamlit app](https://YOUR-STREAMLIT-APP-LINK-HERE)
+👉 [🔗 Click here to open the Streamlit app](https://adeyemibolaji-car-price-prediction-app-cdthxs.streamlit.app/)
 
 ✅ You can test different car combinations and see the predicted price instantly!
 
