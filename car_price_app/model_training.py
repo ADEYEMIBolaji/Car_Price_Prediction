@@ -33,10 +33,13 @@ def train_and_evaluate(X_train, X_test, y_train, y_test):
         )
     }
 
+    # Ensure models directory exists
+    os.makedirs('models', exist_ok=True)
+
     results = {}
 
     for name, (model, param_grid) in models_params.items():
-        print(f"\nTraining {name}...")
+        print(f"\n🔵 Training {name}...")
         grid = GridSearchCV(model, param_grid, cv=10, scoring='r2', n_jobs=-1)
         grid.fit(X_train, y_train)
         best_model = grid.best_estimator_
@@ -54,12 +57,12 @@ def train_and_evaluate(X_train, X_test, y_train, y_test):
             'R2_Score': r2
         }
 
-        # Save each best model
+        # Save each best model with compression
         joblib.dump(best_model, f'models/{name}_model.pkl', compress=('zlib', 3))
-        print(f"✅ {name} model saved.")
+        print(f"✅ {name} model saved with compression.")
 
     # Ensemble Model
-    print("\nTraining Ensemble Model...")
+    print("\n🔵 Training Ensemble Model...")
 
     rf_best = joblib.load('models/RandomForest_model.pkl')
     xgb_best = joblib.load('models/XGBoost_model.pkl')
@@ -85,8 +88,9 @@ def train_and_evaluate(X_train, X_test, y_train, y_test):
         'R2_Score': r2
     }
 
+    # Save Ensemble with compression
     joblib.dump(ensemble, 'models/Ensemble_model.pkl', compress=('zlib', 3))
-    print("✅ Ensemble model saved.")
+    print("✅ Ensemble model saved with compression.")
 
     results_df = pd.DataFrame(results).T
     return results_df

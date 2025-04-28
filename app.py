@@ -3,7 +3,9 @@ import pandas as pd
 import joblib
 from datetime import datetime
 # Load the trained model
+
 model = joblib.load('models/Ensemble_model.pkl')  # Or whatever best model you saved
+
 
 # Load the real dataset
 df = pd.read_csv('data/AutoTrader.csv')  # Update path if needed!
@@ -30,8 +32,8 @@ make_to_body_types = {
 current_year = datetime.now().year
 
 # Streamlit App
-st.title("🚗 Get your Car Price Estimate")
 
+st.title("🚗 Get your Car Price Estimate")
 # Select Make
 selected_make = st.selectbox("Select Car Make", makes)
 
