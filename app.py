@@ -32,7 +32,7 @@ make_to_body_types = {
 current_year = datetime.now().year
 
 # Streamlit App
-st.title("🚗 Findout Car Estimate")
+st.title("🚗 Find out your Car Estimate")
 
 # Select Make
 selected_make = st.selectbox("Select Car Make", makes)

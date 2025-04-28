@@ -23,13 +23,13 @@ def train_and_evaluate(X_train, X_test, y_train, y_test):
             {
                 'min_samples_split': [15, 20]
             }
-        ),
-        'RandomForest': (
-            RandomForestRegressor(random_state=42),
-            {
-                'n_estimators': [50, 75]
-            }
-        )
+        )#,
+        # 'RandomForest': (
+        #     RandomForestRegressor(random_state=42),
+        #     {
+        #         'n_estimators': [50, 75]
+        #     }
+        # )
     }
 
     # Ensure models directory exists
@@ -65,12 +65,12 @@ def train_and_evaluate(X_train, X_test, y_train, y_test):
 
     xgb_best = joblib.load('models/XGBoost_model.pkl')
     dt_best = joblib.load('models/DecisionTree_model.pkl')
-    rf_best = joblib.load('models/RandomForest_model.pkl')
+    # rf_best = joblib.load('models/RandomForest_model.pkl')
 
     ensemble = VotingRegressor(estimators=[
         ('xgb', xgb_best),
-        ('dt', dt_best),
-        ('rf', rf_best)
+        ('dt', dt_best)#,
+        # ('rf', rf_best)
     ])
 
     ensemble.fit(X_train, y_train)
