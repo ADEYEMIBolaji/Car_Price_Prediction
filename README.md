@@ -135,7 +135,7 @@ to automatically download and extract models into /models/ before starting the a
 - Add SHAP explainability to interpret model predictions
 - Allow uploading a CSV of multiple cars for batch prediction
 - Add model monitoring and retraining
-
+- Deploy on a faster and better host like Snowflakes for user ease
 ---
 
 ## 👨‍💻 Author
